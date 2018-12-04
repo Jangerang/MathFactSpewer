@@ -10,8 +10,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // todo: delete this test
-        Button test = findViewById(R.id.buttonRandom);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
