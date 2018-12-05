@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="240dp"
         android:text="Random Fact"
         tools:layout_editor_absoluteX="22dp"
         tools:layout_editor_absoluteY="172dp" />
@@ -18,17 +18,24 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="113dp"
-        android:text="TextView"
+        android:layout_height="100dp"
+        android:text="Enter Settings"
         tools:layout_editor_absoluteX="27dp"
         tools:layout_editor_absoluteY="26dp"
         tools:text="Enter Settings" />
 
-    <Button
-        android:id="@+id/buttonSave"
+    <Spinner
+        android:id="@+id/dropdownOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Settings"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/buttonGenerate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Fact"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="371dp" />
 

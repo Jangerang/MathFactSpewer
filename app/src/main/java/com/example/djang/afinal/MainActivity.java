@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,13 +22,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button saveButton = findViewById(R.id.buttonSave);
+        Button saveButton = findViewById(R.id.buttonGenerate);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("MyApp", "Save Button was pressed.");
+                Log.i("MyApp", "Generate Button was pressed.");
             }
         });
+
+        Spinner dropdown = findViewById(R.id);
+
+
+
     }
 
 }

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Final</string>
+
+    <string-array name = "names">
+        <item>Trivia</item>
+        <item>Date</item>
+        <item>Year</item>
+        <item>Math</item>
+    </string-array>
+
+
 </resources>
+
