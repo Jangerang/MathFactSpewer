@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
     /** Request queue for our network requests. */
     private static RequestQueue requestQueue;
 
-    /** Possible request types */
-    private enum TYPES {TRIVIA, DATE, YEAR, MATH};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,21 +42,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Random Button was pressed.");
+                startAPICall(true);
             }
         });
 
-        Button saveButton = findViewById(R.id.buttonSave);
+        Button saveButton = findViewById(R.id.buttonGenerate);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Generate Button was pressed.");
-                startApiCall();
+                startAPICall(false);
             }
         });
+
+        Spinner dropdown = findViewById(R.id.dropdownOptions);
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(MainActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropdown.setAdapter(myAdapter);
     }
 
-    void startAPICall() {
+    private void startAPICall(boolean random) {
         try {
+            String url = "http://numbersapi.com/";
+
+            Spinner spinner = findViewById(R.id.dropdownOptions);
+            String type = spinner.getSelectedItem().toString().toLowerCase();
+            if (random) url += "random/";
+            else {
+                EditText settingsView = findViewById(R.id.settingInput);
+                String number = settingsView.getText().toString();
+                // check that number is valid (mm/dd, m/dd, m/d, mm/d; yyyy; number) for the type
+                url += number + "/";
+            }
+
+            url += type + "?json";
+
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
                     "http://numbersapi.com/random/math?json",
@@ -66,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
-                            apiCallDone(response);
+                            //apiCallDone(response);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -79,12 +98,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Spinner dropdown = findViewById(R.id.dropdownOptions);
-
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropdown.setAdapter(myAdapter);
     }
 
 }
