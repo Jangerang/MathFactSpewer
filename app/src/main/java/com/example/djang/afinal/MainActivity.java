@@ -54,10 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Generate Button was pressed.");
                 try {
                     startAPICall(false);
-                } catch (IllegalStateException ignored) { }
+                } catch (Exception ignored) { }
             }
         });
 
+        // create a dropdown list of options for the type of fact
         Spinner dropdown = findViewById(R.id.dropdownOptions);
         ArrayAdapter<String> myAdapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.names));
@@ -75,9 +76,56 @@ public class MainActivity extends AppCompatActivity {
             else {
                 EditText settingsView = findViewById(R.id.settingInput);
                 String number = settingsView.getText().toString();
+                TextView out = findViewById(R.id.textDisplay);
                 switch (type) {
                     case "date":
-                        //if (number.matches("[0-9][0-9]?/[]"))
+                        if (number.matches("\\d*?/\\d*")) {
+                            String[] nums = number.split("/");
+                            int mo = Integer.parseInt(nums[0]);
+                            int d = Integer.parseInt(nums[1]);
+                            if (mo < 1 || mo > 12) {
+                                out.setText(getString(R.string.invalidMonth));
+                                throw new IllegalStateException();
+                            }
+                            switch (mo) {
+                                case 1:
+                                case 3:
+                                case 5:
+                                case 7:
+                                case 8:
+                                case 10:
+                                case 12:
+                                    if (d < 1 || d > 31) {
+                                        out.setText(getString(R.string.invalidDay));
+                                        throw new IllegalStateException();
+                                    }
+                                    break;
+                                case 4:
+                                case 6:
+                                case 9:
+                                case 11:
+                                    if (d < 1 || d > 30) {
+                                        out.setText(getString(R.string.invalidDay));
+                                        throw new IllegalStateException();
+                                    }
+                                    break;
+                                case 2:
+                                    if (d < 1 || d > 29) {
+                                        out.setText(getString(R.string.invalidDay));
+                                        throw new IllegalStateException();
+                                    }
+                                    break;
+                            }
+                            break;
+                        }
+                    default:
+                        try {
+                            //noinspection ResultOfMethodCallIgnored, just want to check if it parses
+                            Integer.parseInt(number);
+                        } catch (NumberFormatException e) {
+                            out.setText(getString(R.string.invalidNumber));
+                            throw new IllegalStateException();
+                        }
                 }
                 url += number + "/";
             }
