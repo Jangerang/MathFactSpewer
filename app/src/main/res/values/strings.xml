@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Final</string>
     <string name="ApiError">A fact couldn\'t be retrieved.</string>
+    <string name="invalidSetting">The entered setting is invalid.</string>
 
     <string-array name = "names">
         <item>Trivia</item>
