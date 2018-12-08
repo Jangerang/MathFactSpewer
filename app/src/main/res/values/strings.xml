@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Final</string>
+    <string name="app_name">Math Fact Generator</string>
     <string name="ApiError">A fact couldn\'t be retrieved.</string>
     <string name="invalidMonth">Invalid month in date setting.</string>
     <string name="invalidDay">Invalid day in date setting.</string>

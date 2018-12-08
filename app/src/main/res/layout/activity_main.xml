@@ -4,14 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2196F3"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/buttonRandom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:text="Generate Random Fact"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="254dp"
+        tools:layout_editor_absoluteY="231dp" />
 
     <TextView
         android:id="@+id/textDisplay"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="400dp"
         android:text="Random Fact"
+        android:textSize="35sp"
+        android:typeface="serif"
         tools:layout_editor_absoluteX="22dp"
         tools:layout_editor_absoluteY="172dp" />
 
@@ -35,16 +48,10 @@
         android:id="@+id/buttonGenerate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
         android:text="Get Fact"
+        android:textSize="25sp"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="371dp" />
-
-    <Button
-        android:id="@+id/buttonRandom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Generate Random Fact"
-        tools:layout_editor_absoluteX="254dp"
-        tools:layout_editor_absoluteY="231dp" />
 
 </LinearLayout>
