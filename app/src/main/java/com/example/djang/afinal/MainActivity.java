@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Generate Button was pressed.");
-                startAPICall(false);
+                try {
+                    startAPICall(false);
+                } catch (IllegalStateException ignored) { }
             }
         });
 
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         dropdown.setAdapter(myAdapter);
     }
 
-    private void startAPICall(boolean random) {
+    private void startAPICall(final boolean random) {
         try {
             String url = "http://numbersapi.com/";
 
@@ -72,20 +75,23 @@ public class MainActivity extends AppCompatActivity {
             else {
                 EditText settingsView = findViewById(R.id.settingInput);
                 String number = settingsView.getText().toString();
-                // check that number is valid (mm/dd, m/dd, m/d, mm/d; yyyy; number) for the type
+                switch (type) {
+                    case "date":
+                        //if (number.matches("[0-9][0-9]?/[]"))
+                }
                 url += number + "/";
             }
 
             url += type + "?json";
-
+            Log.d(TAG, url);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "http://numbersapi.com/random/math?json",
+                    url,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
-                            //apiCallDone(response);
+                            apiCallDone(response, random);
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -100,4 +106,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void apiCallDone(JSONObject response, boolean random) {
+        try {
+            if (random) {
+                EditText in = findViewById(R.id.settingInput);
+                in.setText(response.get("number").toString());
+            }
+            TextView out = findViewById(R.id.textDisplay);
+            out.setText(response.get("text").toString());
+        } catch (JSONException ignored) { }
+    }
 }
