@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 url += number + "/";
             }
 
-            url += type + "?json";
+            url += type + "?json&default=A+fact+could+not+be+retrieved.";
             Log.d(TAG, url);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
